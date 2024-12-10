@@ -1,0 +1,702 @@
+/* إعدادات عامة */
+:root {
+    --primary-color: #ffc107;          /* أصفر ذهبي */
+    --primary-dark: #ffa000;           /* أصفر داكن */
+    --primary-light: #ffd54f;          /* أصفر فاتح */
+    --accent-color: #ff9800;           /* برتقالي */
+    --success-color: #4caf50;          /* أخضر */
+    --danger-color: #f44336;           /* أحمر */
+    --background-color: #fff8e1;       /* بيج فاتح */
+    --surface-color: #ffffff;          /* أبيض */
+    --hover-color: #fff3e0;            /* بيج فاتح للتحويم */
+    --text-primary: #424242;           /* رمادي داكن */
+    --text-secondary: #757575;         /* رمادي متوسط */
+    --text-on-primary: #000000;        /* أسود للنص على الخلفية الصفراء */
+    --border-color: #ffe0b2;           /* بيج */
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    direction: rtl;
+    line-height: 1.6;
+}
+
+/* تخطيط التطبيق */
+.app-container {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    min-height: 100vh;
+}
+
+/* الشريط الجانبي */
+.sidebar {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: var(--text-on-primary);
+    padding: 2rem;
+    position: fixed;
+    width: 250px;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    background-color: var(--primary-dark);
+}
+
+.logo i {
+    font-size: 2rem;
+}
+
+.logo h1 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: var(--primary-dark);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.user-info i {
+    font-size: 2rem;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-details small {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.nav-button {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--primary-dark);
+    color: var(--text-on-primary);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s;
+    margin-bottom: 0.5rem;
+}
+
+.nav-button:hover {
+    background-color: var(--accent-color);
+}
+
+/* المحتوى الرئيسي */
+.main-content {
+    margin-right: 250px;
+    padding: 2rem;
+}
+
+.main-header {
+    background-color: var(--surface-color);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    margin-bottom: 2rem;
+}
+
+.date-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.current-date {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--background-color);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+}
+
+.current-date input[type="date"] {
+    border: none;
+    background: none;
+    font-size: 1rem;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+/* بطاقات الملخص */
+.summary-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.card {
+    background-color: var(--surface-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.income-card .card-icon {
+    background-color: #e8f5e9;
+    color: var(--success-color);
+}
+
+.expense-card .card-icon {
+    background-color: #ffebee;
+    color: var(--danger-color);
+}
+
+.balance-card .card-icon {
+    background-color: #e3f2fd;
+    color: var(--accent-color);
+}
+
+.card-content {
+    flex: 1;
+}
+
+.card-content h3 {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-content p {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* شبكة المعاملات */
+.transactions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.section-header i {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+}
+
+/* نموذج إضافة المعاملات */
+.add-transaction-section {
+    background-color: var(--surface-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+}
+
+.form-group label i {
+    color: var(--accent-color);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.form-group textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--success-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #1b5e20;
+}
+
+/* جدول المعاملات */
+.day-transactions-section {
+    background-color: var(--surface-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: right;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background-color: var(--primary-color);
+    color: var(--text-on-primary);
+    font-weight: 600;
+}
+
+tr:hover {
+    background-color: var(--hover-color);
+}
+
+/* النافذة المنبثقة */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    background-color: var(--surface-color);
+    margin: 5% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--primary-color);
+    color: var(--text-on-primary);
+}
+
+.close {
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-secondary);
+}
+
+.close:hover {
+    color: var(--danger-color);
+}
+
+.modal-body {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+/* نموذج إضافة مستخدم */
+#addUserForm {
+    background-color: var(--background-color);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+#addUserForm h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+/* قائمة المستخدمين */
+.users-list {
+    margin-top: 30px;
+}
+
+.users-list h3 {
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+#usersTable {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--surface-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#usersTable th,
+#usersTable td {
+    padding: 12px;
+    text-align: right;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#usersTable th {
+    background-color: var(--primary-color);
+    color: var(--text-on-primary);
+    font-weight: 500;
+}
+
+#usersTable tr:last-child td {
+    border-bottom: none;
+}
+
+#usersTable tr:hover {
+    background-color: var(--hover-color);
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-danger:hover {
+    background-color: #d32f2f;
+}
+
+.btn-sm {
+    padding: 4px 8px;
+    font-size: 14px;
+}
+
+/* نافذة إدارة المستخدمين */
+.modal-users {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-users-content {
+    position: relative;
+    background-color: var(--surface-color);
+    margin: 5% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-users-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--primary-color);
+    color: var(--text-on-primary);
+}
+
+.modal-users-header h2 {
+    margin: 0;
+    color: var(--text-color);
+}
+
+.close-users {
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-secondary);
+}
+
+.close-users:hover {
+    color: var(--danger-color);
+}
+
+.modal-users-body {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+/* أنماط الدخل الفعلي والفرق */
+.actual-income-input {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.actual-income-input input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.actual-income-input .currency {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.difference-amount {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.status-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status-badge.positive {
+    background-color: #e8f5e9;
+    color: var(--success-color);
+}
+
+.status-badge.negative {
+    background-color: #ffebee;
+    color: var(--danger-color);
+}
+
+.status-badge.neutral {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+#differenceAmount.positive {
+    color: var(--success-color);
+}
+
+#differenceAmount.negative {
+    color: var(--danger-color);
+}
+
+#differenceAmount.neutral {
+    color: #1976d2;
+}
+
+/* الإشعارات */
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.3s ease-out;
+    z-index: 1100;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.notification.success {
+    background-color: var(--success-color);
+}
+
+.notification.error {
+    background-color: var(--danger-color);
+}
+
+.notification.info {
+    background-color: var(--primary-color);
+}
+
+.notification i {
+    font-size: 1.2rem;
+}
+
+/* تصميم متجاوب */
+@media (max-width: 1200px) {
+    .transactions-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .app-container {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        padding: 1rem;
+    }
+
+    .main-content {
+        margin-right: 0;
+        padding: 1rem;
+    }
+
+    .summary-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Description management */
+.description-container {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.description-container select {
+    flex: 1;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: #666;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.icon-button:hover {
+    background-color: #f0f0f0;
+    color: #1976d2;
+}
+
+.add-description-form {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.descriptions-list {
+    margin-top: 20px;
+}
+
+.description-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    margin-bottom: 8px;
+    border-radius: 4px;
+}
+
+.description-item button {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.description-item button:hover {
+    background-color: #dc3545;
+    color: #fff;
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - روافد</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--background-color);
+        }
+
+        .login-box {
+            background-color: var(--surface-color);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px var(--shadow-color);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .login-header h1 {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .error-message {
+            background-color: #ffebee;
+            color: var(--danger-color);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+    </style>
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-box">
+            <h1>تسجيل الدخول</h1>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="username">اسم المستخدم</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">كلمة المرور</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">تسجيل الدخول</button>
+            </form>
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script src="users.js"></script>
+    <script>
+        // تهيئة المستخدم الافتراضي
+        async function initializeDefaultUser() {
+            try {
+                const users = userSystem.getUsers();
+                if (users.length === 0) {
+                    await userSystem.addUser('admin', 'admin123', 'admin', 'المدير');
+                    console.log('تم إنشاء المستخدم الافتراضي بنجاح');
+                }
+            } catch (error) {
+                console.error('خطأ في تهيئة المستخدم الافتراضي:', error);
+            }
+        }
+
+        // استدعاء دالة التهيئة عند تحميل الصفحة
+        window.addEventListener('load', initializeDefaultUser);
+
+        async function handleLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            try {
+                const user = await userSystem.validateLogin(username, password);
+                if (user) {
+                    // تخزين بيانات المستخدم في الجلسة
+                    sessionStorage.setItem('currentUser', JSON.stringify(user));
+                    // توجيه المستخدم إلى الصفحة الرئيسية
+                    window.location.href = 'index.html';
+                } else {
+                    errorMessage.textContent = 'خطأ في اسم المستخدم أو كلمة المرور';
+                    errorMessage.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('خطأ في تسجيل الدخول:', error);
+                errorMessage.textContent = 'حدث خطأ أثناء تسجيل الدخول';
+                errorMessage.style.display = 'block';
+            }
+        }
+
+        // التحقق من وجود مستخدم مسجل
+        if (sessionStorage.getItem('currentUser')) {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

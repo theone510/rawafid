@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منفذ روافد كربلاء - نظام الحسابات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fas fa-store"></i>
+                <span>منفذ روافد كربلاء</span>
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="#" class="active" data-action="home">
+                            <i class="fas fa-home"></i>
+                            <span>الرئيسية</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-action="manage-users">
+                            <i class="fas fa-users"></i>
+                            <span>إدارة المستخدمين</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-action="logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>تسجيل الخروج</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <div class="date-navigation">
+                    <button id="prevDay" class="nav-button" title="اليوم السابق">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <div class="current-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <input type="date" id="selectedDate">
+                    </div>
+                    <button id="nextDay" class="nav-button" title="اليوم التالي">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+               
+
+                <div class="transactions-grid">
+                    <section class="add-transaction-section">
+                        <div class="section-header">
+                            <i class="fas fa-plus-circle"></i>
+                            <h2>إضافة معاملة جديدة</h2>
+                        </div>
+                        <form id="transactionForm">
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-exchange-alt"></i>
+                                    نوع المعاملة
+                                </label>
+                                <select id="transactionType" required>
+                                    <option value="income">مبالغ داخلة</option>
+                                    <option value="expense">مبالغ خارجة</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-tag"></i>
+                                    الوصف
+                                </label>
+                                <div class="description-container">
+                                    <select id="description" required>
+                                        <option value="">اختر الوصف</option>
+                                    </select>
+                                    <button type="button" id="manageDescriptions" class="icon-button" title="إدارة الأوصاف">
+                                        <i class="fas fa-cog"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    المبلغ
+                                </label>
+                                <input type="number" id="amount" required min="0" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-sticky-note"></i>
+                                    ملاحظات
+                                </label>
+                                <textarea id="notes"></textarea>
+                            </div>
+                            <button type="submit" class="submit-button">
+                                <i class="fas fa-plus"></i>
+                                إضافة المعاملة
+                            </button>
+                        </form>
+                    </section>
+
+                    <section class="day-transactions-section">
+                        <div class="section-header">
+                            <i class="fas fa-list"></i>
+                            <h2>معاملات اليوم</h2>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>الوقت</th>
+                                        <th>النوع</th>
+                                        <th>الوصف</th>
+                                        <th>المبلغ</th>
+                                        <th>الملاحظات</th>
+                                        <th>الإجراءات</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dayTransactionsBody"></tbody>
+                            </table>
+                        </div>
+                    </section>
+                    <section class="summary-section">
+                        <div class="card income-card">
+                            <div class="card-icon">
+                                <i class="fas fa-arrow-down"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>المبالغ الداخلة</h3>
+                                <p id="dayTotalIncome">0 د.ع</p>
+                            </div>
+                        </div>
+    
+                        <div class="card expense-card">
+                            <div class="card-icon">
+                                <i class="fas fa-arrow-up"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>المبالغ الخارجة</h3>
+                                <p id="dayTotalExpense">0 د.ع</p>
+                            </div>
+                        </div>
+    
+                        <div class="card balance-card">
+                            <div class="card-icon">
+                                <i class="fas fa-balance-scale"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>المفروض</h3>
+                                <p id="dayBalance">0 د.ع</p>
+                            </div>
+                        </div>
+
+                        <div class="card actual-income-card">
+                            <div class="card-icon">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>الدخل الفعلي</h3>
+                                <div class="actual-income-input">
+                                    <input type="number" id="actualIncome" placeholder="أدخل المبلغ الفعلي" min="0">
+                                    <span class="currency">د.ع</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card difference-card">
+                            <div class="card-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>الفرق</h3>
+                                <div class="difference-amount">
+                                    <p id="differenceAmount">0 د.ع</p>
+                                    <span id="differenceStatus" class="status-badge"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- نافذة إدارة الأوصاف -->
+    <div id="descriptionsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-tags"></i>
+                <h2>إدارة الأوصاف</h2>
+                <button class="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addDescriptionForm" class="add-description-form">
+                    <div class="form-group">
+                        <label>نوع المعاملة</label>
+                        <select id="descriptionType" required>
+                            <option value="income">مبالغ داخلة</option>
+                            <option value="expense">مبالغ خارجة</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>الوصف الجديد</label>
+                        <input type="text" id="newDescription" required>
+                    </div>
+                    <button type="submit" class="submit-button">
+                        <i class="fas fa-plus"></i>
+                        إضافة وصف
+                    </button>
+                </form>
+                <div id="descriptionsContainer" class="descriptions-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة إدارة المستخدمين -->
+<div id="userManagementModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <i class="fas fa-users"></i>
+            <h2>إدارة المستخدمين</h2>
+            <button class="close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="addUserForm" class="add-user-form">
+                <div class="form-group">
+                    <label>اسم المستخدم</label>
+                    <input type="text" id="newUsername" required>
+                </div>
+                <div class="form-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" id="newPassword" required>
+                </div>
+                <div class="form-group">
+                    <label>الاسم الكامل</label>
+                    <input type="text" id="newName" required>
+                </div>
+                <div class="form-group">
+                    <label>الصلاحية</label>
+                    <select id="newRole" required>
+                        <option value="employee">موظف</option>
+                        <option value="admin">مدير</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-plus"></i>
+                    إضافة مستخدم
+                </button>
+            </form>
+            <div class="users-table">
+                <table id="usersTable">
+                    <thead>
+                        <tr>
+                            <th>اسم المستخدم</th>
+                            <th>الاسم الكامل</th>
+                            <th>الصلاحية</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- استدعاء ملفات JavaScript -->
+<script src="users.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
